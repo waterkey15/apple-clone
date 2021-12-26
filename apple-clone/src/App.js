@@ -7,12 +7,17 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import Card from './components/Card';
 import Mac from './components/Mac';
 import Iphone from './components/Iphone';
+import Subtotal from './components/Subtotal';
 
 
 function App() {
   return (
     <Router>
       <Switch>
+      <Route path="/subtotal">
+        <Header/> 
+        <Subtotal/>
+      </Route>
       <Route path="/iphone">
         <Header/> 
         <Iphone/> 

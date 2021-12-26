@@ -19,7 +19,7 @@ function IphoneItem({id, cameraDesc, cameraImg, iphoneImage, procdutName, price,
         })) 
     }
    
-    console.log(basket)
+    // console.log(basket)
 
     return (
         <Container>

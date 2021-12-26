@@ -58,6 +58,7 @@ const Container = styled.div`
 
 
 const LastChanceDiv = styled.div`
+    margin-top: 50px;
     background-color: #EDEFFE;
     overflow: hidden;
     width: 100%;

@@ -44,12 +44,14 @@ function Header() {
                 <SearchLI>
                     <SearchIcon/>
                 </SearchLI>
-                <CartLI>
-                    <img src="https://www.apple.com/ac/globalnav/7/en_US/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_bag_image__yzte50i47ciu_large.svg" alt=""/>
-                    <p>
-                        {basket.length}
-                    </p>
-                </CartLI>
+                <Link2 to="/subtotal">
+                    <CartLI>
+                        <img src="https://www.apple.com/ac/globalnav/7/en_US/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_bag_image__yzte50i47ciu_large.svg" alt=""/>
+                        <p>
+                            {basket.length}
+                        </p>
+                    </CartLI>
+                </Link2>
             </ListContainer>
 
             <BurgerNav show={burgerStatus}>
@@ -67,9 +69,17 @@ function Header() {
                 </InputBox>
                 <BurderListItemContainer>
                     <li>Store</li>
-                    <li>Mac</li>
+                    <li>
+                        <Link2 to="/mac">
+                            Mac
+                        </Link2>
+                    </li>
                     <li>iPad</li>
-                    <li>iPhone</li>
+                    <li>
+                        <Link2 to="/iphone">
+                            iPhone
+                        </Link2>
+                    </li>
                     <li>Watch</li>
                     <li>AirPods</li>
                     <li>TV & Home</li>
@@ -339,6 +349,11 @@ const Link1 = styled(Link)`
         display: flex;
         justify-content: center;
     }
+`
+
+const Link2 = styled(Link)`
+    text-decoration: none;
+    color: #fff;
 `
 
 export default Header
