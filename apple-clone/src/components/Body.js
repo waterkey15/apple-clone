@@ -28,21 +28,21 @@ function Body() {
             <PhoneModel descColor="fec2eb" headerColor="fff" url="https://www.apple.com/v/home/ai/images/heroes/iphone-13/hero_iphone_13__f194u1rdooeq_medium_2x.jpg" bgColor="33283D" name="iPhone 13" desc="Your new superpower"/>
             <Seperator/>
             <CardHolder>
-                <Card isNew={true} logo={"https://www.apple.com/v/home/ai/images/logos/watch-series-7/tile_watch_logo_lte__h7snssb7mqq2_medium_2x.png"} name={''} desc="Introducing our largest display yet." isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/watch-series-7/tile_watch__e9n11b6m6yq2_medium_2x.jpg" iscolorWhite={false}/>
+                <Card occupy={"%50"} isNew={true} logo={"https://www.apple.com/v/home/ai/images/logos/watch-series-7/tile_watch_logo_lte__h7snssb7mqq2_medium_2x.png"} name={''} desc="Introducing our largest display yet." isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/watch-series-7/tile_watch__e9n11b6m6yq2_medium_2x.jpg" iscolorWhite={false}/>
                 <Seperator/>    
-                <Card isNew={false} logo={""} name={'AirPods'} desc="Give the all-new AirPods with Spatial Audio this holiday" isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/airpods-silhouette/promo_airpods_silhouette__d2srnok0r6mq_medium_2x.jpg" iscolorWhite={true}/>
+                <Card occupy={"%50"} isNew={false} logo={""} name={'AirPods'} desc="Give the all-new AirPods with Spatial Audio this holiday" isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/airpods-silhouette/promo_airpods_silhouette__d2srnok0r6mq_medium_2x.jpg" iscolorWhite={true}/>
             </CardHolder>
             <Seperator/>
             <CardHolder>
-                <Card isNew={false} logo={""} name={'HomePod mini'} desc="" isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/homepod-mini/tile_homepod_mini__b73w4z3ljymu_medium_2x.jpg" iscolorWhite={false}/>
+                <Card occupy={"%50"} isNew={false} logo={""} name={'HomePod mini'} desc="" isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/homepod-mini/tile_homepod_mini__b73w4z3ljymu_medium_2x.jpg" iscolorWhite={false}/>
                 <Seperator/>    
-                <Card isNew={false} logo={""} name={'MacBook Pro'} desc="Supercharged for pros" isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/macbook-pro/tile_macbookpro__cx0ur0qg9biq_medium_2x.jpg" iscolorWhite={false}/>
+                <Card occupy={"%50"} isNew={false} logo={""} name={'MacBook Pro'} desc="Supercharged for pros" isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/macbook-pro/tile_macbookpro__cx0ur0qg9biq_medium_2x.jpg" iscolorWhite={false}/>
             </CardHolder>
             <Seperator/>    
             <CardHolder>
-                <Card isNew={false} logo="https://www.apple.com/v/home/ai/images/logos/apple-card/logo__dcojfwkzna2q_medium_2x.png" name={""} desc="Get up to 3% Daily Cash back with every purchase." isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/apple-card/tile__cauwwcyyn9hy_medium_2x.jpg" iscolorWhite={false}/>
+                <Card occupy={"%50"} isNew={false} logo="https://www.apple.com/v/home/ai/images/logos/apple-card/logo__dcojfwkzna2q_medium_2x.png" name={""} desc="Get up to 3% Daily Cash back with every purchase." isProduct={true} bgImage="https://www.apple.com/v/home/ai/images/promos/apple-card/tile__cauwwcyyn9hy_medium_2x.jpg" iscolorWhite={false}/>
                 <Seperator/>
-                <Card isNew={false} logo={""} name={"Swan Song"} desc="Mahershala Ali, Naomie Harris with Awkwafina and Glenn Close" isProcut={false} bgImage="https://www.apple.com/v/home/ai/images/promos/tv-plus-swan-song/tile_swan_song__ciotl96w8x36_medium_2x.jpg" iscolorWhite={true}/>
+                <Card occupy={"%50"} isNew={false} logo={""} name={"Swan Song"} desc="Mahershala Ali, Naomie Harris with Awkwafina and Glenn Close" isProcut={false} bgImage="https://www.apple.com/v/home/ai/images/promos/tv-plus-swan-song/tile_swan_song__ciotl96w8x36_medium_2x.jpg" iscolorWhite={true}/>
             </CardHolder>
             <Seperator/>
             <Footer>

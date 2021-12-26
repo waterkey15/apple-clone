@@ -4,25 +4,36 @@ import SearchIcon from '@mui/icons-material/Search';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 
 function Header() {
 
     const [burgerStatus, setBurgerStatus] = useState(false);
+    const basket = useSelector((state) => state.basket.value);
 
 
     return (
+        
         <Container>
             <ListContainer>
                 <MenuIcon>
                     <DragHandleIcon onClick={() => setBurgerStatus(true)}/>
                 </MenuIcon>
-                <AppleLI>
-                    <img src="https://www.apple.com/ac/globalnav/7/en_US/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_apple_image__b5er5ngrzxqq_large.svg" alt=""/>
-                </AppleLI>
+                <Link1 to="/">
+                    <AppleLI>
+                        <img src="https://www.apple.com/ac/globalnav/7/en_US/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_apple_image__b5er5ngrzxqq_large.svg" alt=""/>
+                    </AppleLI>
+                </Link1>
                 <StoreLI>Store</StoreLI>
-                <MacLI>Mac</MacLI>
-                <IphoneLI>iPhone</IphoneLI>
+                <Link to="/mac">
+                    <MacLI>Mac</MacLI>
+                </Link>
+                <Link to="/iphone">
+                    <IphoneLI>iPhone</IphoneLI>
+                </Link>
                 <IPadLI>iPad</IPadLI>
                 <WatchLI>Watch</WatchLI>
                 <AirpodsLI>AirPods</AirpodsLI>
@@ -35,6 +46,9 @@ function Header() {
                 </SearchLI>
                 <CartLI>
                     <img src="https://www.apple.com/ac/globalnav/7/en_US/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_bag_image__yzte50i47ciu_large.svg" alt=""/>
+                    <p>
+                        {basket.length}
+                    </p>
                 </CartLI>
             </ListContainer>
 
@@ -78,6 +92,7 @@ const Container = styled.div`
     color: white;
     align-items: center;
     overflow: hidden;
+    position:fixed;
 `
 const ListContainer = styled.ul`
     display: flex;
@@ -87,6 +102,9 @@ const ListContainer = styled.ul`
     flex-wrap: nowrap;
     margin: 0;
     padding: 0 5% 0 5%;
+    span{
+        margin: 0;
+    }
 `
 
 const AppleLI = styled.li`
@@ -101,6 +119,8 @@ const AppleLI = styled.li`
     opacity: 0.8;
     text-decoration: none;
     cursor:pointer;
+
+    }
 `
 
 const StoreLI = styled(AppleLI)`
@@ -169,9 +189,17 @@ const SearchLI = styled(StoreLI)`
     
 `
 
-const CartLI = styled(AppleLI)`
+const CartLI = styled.div`
     width: 13px;
     padding-right: 12px;
+    display: flex;
+    padding-right: 3px;
+    justify-content: center;
+    align-items:center;
+    p{
+        margin-left:5px;
+    }
+
 `
 
 const MenuIcon = styled(AppleLI)`
@@ -301,6 +329,16 @@ const BurderListItemContainer = styled.ul`
         margin: 0;
    }
 
+`
+
+const Link1 = styled(Link)`
+    text-decoration: none;
+    list-style-type: none;
+    @media(max-width:830px){
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 `
 
 export default Header

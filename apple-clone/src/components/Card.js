@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function Card({isNew, logo, desc, isProduct, name, bgImage, iscolorWhite}) {
+function Card({isNew, logo, desc, isProduct, name, bgImage, iscolorWhite, occupy}) {
     return (
-        <Container color={iscolorWhite} image={bgImage} new={isNew}>
+        <Container color={iscolorWhite} image={bgImage} new={isNew} width={occupy}>
             <BackgroundImage>
                 <img src="" alt=""/>
             </BackgroundImage>
