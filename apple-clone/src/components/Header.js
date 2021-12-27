@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
@@ -11,8 +11,13 @@ import { useSelector } from 'react-redux';
 
 function Header() {
 
+    const url = window.location.pathname.split('/').pop();
     const [burgerStatus, setBurgerStatus] = useState(false);
     const basket = useSelector((state) => state.basket.value);
+
+    useEffect(()=>{
+        setBurgerStatus(false);
+    }, [url])
 
 
     return (

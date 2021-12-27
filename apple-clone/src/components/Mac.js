@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ItemAndProperties from './ItemAndProperties'
 
 function Mac() {
+
     return (
         <Container>
             <StoreItem id={7} bgColor="fdfdf5" image="https://www.apple.com/v/mac/home/bk/images/overview/hero/hero_macbook_pro_14_16__0y2t2v3g4hu2_medium_2x.jpg" price={1999} desc="Supercharged for pros" name="MacBook Pro" isNew={true}/>

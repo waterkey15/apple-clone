@@ -1,6 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialStateValue = []
+const initialStateValue = [];
+
+
+export const getBasketTotal = (basket) => 
+    basket?.reduce((amount, item) => item.price + amount, 0);
+
+export const calcTax = (basket) => {
+    const totalAmount = getBasketTotal(basket);
+    const tax = (8 * totalAmount) / 100;
+    return tax;
+}
+
+export const getFinalTotal = (basket) =>{
+    return getBasketTotal(basket) + calcTax(basket)
+}
 
 export const basketSlice = createSlice({
     name: "user",

@@ -8,12 +8,17 @@ import Card from './components/Card';
 import Mac from './components/Mac';
 import Iphone from './components/Iphone';
 import Subtotal from './components/Subtotal';
+import Checkout from './components/Checkout';
 
 
 function App() {
   return (
     <Router>
       <Switch>
+      <Route path="/checkout">
+        <Header/> 
+        <Checkout/>
+      </Route>
       <Route path="/subtotal">
         <Header/> 
         <Subtotal/>
