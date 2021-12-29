@@ -98,7 +98,16 @@ const Contact = styled.p`
     }
 `
 
-const Copyright = styled(Contact)`
+const Copyright = styled.div`
+    color: #6e6e73;
+    font-size: 12px;
+    line-height: 1.3337;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    padding-bottom: 0.8em;
+    a{
+        color: #0066CC;
+    }
     display:flex;
     align-content: center;
     justify-content: space-between;

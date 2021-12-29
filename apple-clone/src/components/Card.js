@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 function Card({isNew, logo, desc, isProduct, name, bgImage, iscolorWhite, occupy}) {
     return (
-        <Container color={iscolorWhite} image={bgImage} new={isNew} width={occupy}>
+        <Container color={iscolorWhite.toString()} image={bgImage} new={isNew.toString()} width={occupy}>
             <BackgroundImage>
                 <img src="" alt=""/>
             </BackgroundImage>
-            <TopPart color={iscolorWhite}>
+            <TopPart color={iscolorWhite.toString()}>
                 <span>
                     {
                         isNew? ("New") : ("")
@@ -20,13 +20,13 @@ function Card({isNew, logo, desc, isProduct, name, bgImage, iscolorWhite, occupy
                 <h5>{desc}</h5>
                 {
                     isProduct?(
-                        <Links color={iscolorWhite}>
+                        <Links color={iscolorWhite.toString()}>
                         <a href="#">Learn more ></a>
                         <a href="#">Buy ></a>
                         </Links>
                     ):
                    (
-                    <Links color={iscolorWhite}>
+                    <Links color={iscolorWhite.toString()}>
                         <a href="#">Stream now ></a>
                     </Links>
                    )
@@ -45,12 +45,12 @@ const Container = styled.div`
     background-size: 120% auto;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: ${props => props.new? '#f5f5f7': "#fbfbfd"};
+    background-color: ${props => props.new == 'true'? '#f5f5f7': "#fbfbfd"};
 
     margin-right: 10px;
     @media(max-width: 830px){
         width: 100%;
-        background-size: ${props => props.color? '734px 548px' : '120% auto '};
+        background-size: ${props => props.color == 'true'? '734px 548px' : '120% auto '};
         /* background-size: 334px 250px; */
     }
 `
@@ -62,9 +62,9 @@ const TopPart = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: ${props => props.color? "130px" : ""};
+    margin-top: ${props => props.color=="true" ? "130px" : ""};
     h1{
-        color: ${props => props.color ? "white" : "#000"};
+        color: ${props => props.color=="true" ? "white" : "#000"};
         margin-top: 42px;
         font-size: 32px;
         line-height: 1.125;
@@ -95,7 +95,7 @@ const TopPart = styled.div`
         text-align: center;
         margin-left: 4px;
         margin-right: 4px;
-        color: ${props => props.color ? "#f5f5f7" : "#000"};
+        color: ${props => props.color=="true" ? "#f5f5f7" : "#000"};
     }
 `
 
@@ -103,7 +103,7 @@ const Links = styled.div`
     padding: 10px;
     a{
         text-decoration: none;
-        color: ${props => props.color ? "#f5f5f7" : "#06x"};
+        color: ${props => props.color=="true" ? "#f5f5f7" : "#06x"};
         font-size: 17px;
         line-height: 1.2353;
         font-weight: 400;

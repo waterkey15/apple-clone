@@ -9,6 +9,10 @@ import Mac from './components/Mac';
 import Iphone from './components/Iphone';
 import Subtotal from './components/Subtotal';
 import Checkout from './components/Checkout';
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+
+const promise = loadStripe('pk_test_51K4WXbEDKSp2rDY6PQ99UMWrKcNlQOXPb5pLbty6QGNWFIQoVkKhAU6AG4JKVywHr3dam9oRPG1sLrKIf6ZceqTg000X0yxFFQ');
 
 
 function App() {
@@ -17,7 +21,9 @@ function App() {
       <Switch>
       <Route path="/checkout">
         <Header/> 
-        <Checkout/>
+        <Elements stripe={promise}>
+          <Checkout/>
+        </Elements>
       </Route>
       <Route path="/subtotal">
         <Header/> 

@@ -8,7 +8,7 @@ function Body() {
 
     return (
         <Container>
-            <LastChanceDiv>
+           <LastChanceDiv>
                 <p>Last chance to shop holiday gifts. Buy online and choose free two-hour courier delivery or pickup from an Apple Clone Store. Shop now ></p>
             </LastChanceDiv>
             <LastMinuteGifts>
@@ -18,7 +18,7 @@ function Body() {
                     <a href="#">Shop gifts ></a>
                 </AppleGiftLogo>
             </LastMinuteGifts>
-            <PhotosContainer>
+             <PhotosContainer>
                 <Iphone1Img src="https://www.apple.com/v/home/ai/images/heroes/holiday-2021/set-a/iphone_alt__zuocx67xf4yu_medium_2x.png" alt=""/>
                 <AirpodsImg src="https://www.apple.com/v/home/ai/images/heroes/holiday-2021/set-a/airpods__b0941p5gmwj6_medium_2x.png" alt=""/>
                 <Iphone2Img src="https://www.apple.com/v/home/ai/images/heroes/holiday-2021/set-a/ipad__bq6djchifrbm_medium_2x.png" alt=""/>
@@ -46,7 +46,7 @@ function Body() {
             </CardHolder>
             <Seperator/>
             <Footer>
-            </Footer>
+            </Footer> 
         </Container>
     )
 }

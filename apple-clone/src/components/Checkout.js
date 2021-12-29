@@ -1,9 +1,74 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Subtotal from './Subtotal'
 import CheckoutElement from './CheckoutElement'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
+import { useSelector } from 'react-redux'
+import axios from '../axios/axios'
+import { getFinalTotal } from '../features/basket/basketSlice'
+import { useHistory } from 'react-router-dom'
 
 function Checkout() {
+
+    const basket = useSelector((state) => state.basket.value);
+
+    const history = useHistory()
+
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const [error, setError] = useState(null);
+    const [disabled, setDisabled] = useState(true);
+
+    const [succeeded, setSucceeded] = useState(false);
+    const [processing, setProcessing] = useState("");
+
+    const [clientSecret, setClientSecret] = useState(true);
+
+    const test = (e) => {
+        console.log("click")
+    }
+
+    useEffect(()=>{
+        const getClientSecret = async () => {
+            const response = await axios({
+                method: 'post',
+                url: `/checkout/create?total=${getFinalTotal(basket) * 100}`
+            });
+            console.log(clientSecret)
+            setClientSecret(response.data.clientSecret)
+        }
+
+
+        getClientSecret();
+    }, [basket]);
+
+    console.log("secret is ====> ", clientSecret);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setProcessing(true);
+
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({ paymentIntend}) => {
+            setSucceeded(true);
+            setError(null);
+            setProcessing(false);
+
+            history.replace('/')
+        })
+    }
+
+    const handleChange = (e) => {
+        setDisabled(e.empty);
+        setError(e.error?e.error.message: "");
+    }
+
+
+
     return (
         <Container>
             <CheckoutHeader>
@@ -30,19 +95,25 @@ function Checkout() {
                     </PhoneHeader>
                     <MailContainer>
                         <EmailInput placeholder="Email Address"></EmailInput>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa distinctio illo quia vel, asperiores tempora cupiditate! Nesciunt sequi voluptatum aut!</p>
+                        <p>
+                        We’ll email you a receipt and send order updates to your mobile phone via SMS or iMessage.
+                        </p>
                     </MailContainer>
                     <PhoneContainer>
                         <PhoneInput placeholder="Phone Number"></PhoneInput>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis nihil nam nesciunt beatae soluta quaerat ipsum a cum distinctio quasi.</p>
+                        <p>
+                        The phone number you enter can’t be changed after you place your order, so please make sure it’s correct.
+                        </p>
                     </PhoneContainer>
+                    <CardElement onChange={handleChange}/>
+                    <PlaceOrder>
+                        <button onClick={handleSubmit} disabled={true}>
+                            {processing? "Processing" : "Place Order"}
+                        </button>
+                        <CheckoutElement/>
+                    </PlaceOrder>
                 </form>
-                <PlaceOrder>
-                    <button>
-                        Place Order
-                    </button>
-                    <CheckoutElement/>
-                </PlaceOrder>
+
             </FormContainer>
         </Container>
     )
@@ -98,7 +169,7 @@ const FormContainer = styled.div`
 `
 
 const NameInput = styled.input`
-    max-width: 500px;
+    max-width: 700px;
     border-color: #d2d2d7;
     text-overflow: ellipsis;
     background-color: hsla(0, 0%, 100%, .8);
@@ -128,6 +199,8 @@ const PhoneHeader = styled(FormHeader)`
 `
 const MailContainer = styled.div`
     display: flex;
+    max-width: 700px;
+
     @media(max-width: 900px){
         flex-direction: column;
     }
@@ -147,12 +220,13 @@ const MailContainer = styled.div`
     }
 `
 
-const EmailInput = styled(NameInput)``
+const EmailInput = styled(NameInput)`
+    width: 50%;
+`
 
 const PhoneContainer = styled(MailContainer)`
-    
 `
-const PhoneInput = styled(NameInput)``
+const PhoneInput = styled(EmailInput)``
 
 const PlaceOrder = styled.div`
     margin-top: 60px;
@@ -177,6 +251,15 @@ const PlaceOrder = styled.div`
         width: 100%;
         max-width: 500px;
     }
+
+`
+
+const CardContainer = styled.form`
+    margin-top: 20px;
+    max-width: 700px;
+`
+
+const SubmitButton = styled.button`
 
 `
 

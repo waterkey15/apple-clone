@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { selectBasket } from '../features/basket/basketSlice'
 import basketSlice from '../features/basket/basketSlice'
 
 
