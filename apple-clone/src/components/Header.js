@@ -5,7 +5,10 @@ import DragHandleIcon from '@mui/icons-material/DragHandle';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import PersonIcon from '@mui/icons-material/Person';
+import { auth } from '../firebase/firebase';
+import { SET_USER } from '../features/user/userSlice';
 
 
 
@@ -14,6 +17,18 @@ function Header() {
     const url = window.location.pathname.split('/').pop();
     const [burgerStatus, setBurgerStatus] = useState(false);
     const basket = useSelector((state) => state.basket.value);
+    const dispatch = useDispatch();
+
+
+    const user = useSelector((state) => state.user.value);
+
+    const handleSignOut = () => {
+        auth.signOut();
+        console.log(user);
+        dispatch((SET_USER(null)))
+
+    }
+
 
     useEffect(()=>{
         setBurgerStatus(false);
@@ -44,8 +59,23 @@ function Header() {
                 <AirpodsLI>AirPods</AirpodsLI>
                 <TVLI>TV & Home</TVLI>
                 <OnlyLI>Only on Apple</OnlyLI>
-                <AccessoriesLI>Accessories</AccessoriesLI>
-                <SupportLI>Support</SupportLI>
+                {
+                    user&& (
+                        <Link to="/orders">
+                            <AccessoriesLI>Orders</AccessoriesLI>
+                        </Link>
+                    )
+                }
+                {
+                    user? (
+                    <IconContainer>
+                        <PersonIcon onClick={handleSignOut}/>
+                    </IconContainer>)
+                    :
+                    <Link to="/signin">
+                        <SupportLI>Sign In</SupportLI>
+                    </Link>
+                }
                 <SearchLI>
                     <SearchIcon/>
                 </SearchLI>
@@ -90,7 +120,11 @@ function Header() {
                     <li>TV & Home</li>
                     <li>Only on Apple</li>
                     <li>Accessories</li>
-                    <li>Support</li>
+                    <li>
+                        <Link2 to="/signin">
+                            Sign In
+                        </Link2>
+                    </li>
                 </BurderListItemContainer>
 
 
@@ -359,6 +393,16 @@ const Link1 = styled(Link)`
 const Link2 = styled(Link)`
     text-decoration: none;
     color: #fff;
+`
+
+const IconContainer = styled.li`
+    cursor:pointer;
+    @media(max-width:830px){
+        margin-right: 20px;
+    }
+    p{
+        position:relative;
+    }
 `
 
 export default Header

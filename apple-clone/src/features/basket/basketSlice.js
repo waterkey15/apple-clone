@@ -41,10 +41,13 @@ export const basketSlice = createSlice({
             }
             console.log(newBasket)
             state.value = newBasket;
+        },
+        EMPTY_BASKET: (state, action) =>{
+            state.value = initialStateValue
         }
 
     }
 });
-export const {ADD_ITEM, REMOVE_ITEM} = basketSlice.actions
+export const {ADD_ITEM, REMOVE_ITEM, EMPTY_BASKET} = basketSlice.actions
 export default basketSlice.reducer
 

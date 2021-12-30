@@ -3,14 +3,20 @@ import styled from 'styled-components'
 import Subtotal from './Subtotal'
 import CheckoutElement from './CheckoutElement'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from '../axios/axios'
 import { getFinalTotal } from '../features/basket/basketSlice'
 import { useHistory } from 'react-router-dom'
+import { EMPTY_BASKET } from '../features/basket/basketSlice';
+import { db } from '../firebase/firebase'
+
 
 function Checkout() {
-
+    
     const basket = useSelector((state) => state.basket.value);
+    const user = useSelector((state) => state.user.value);
+
+    const dispatch = useDispatch();
 
     const history = useHistory()
 
@@ -25,9 +31,6 @@ function Checkout() {
 
     const [clientSecret, setClientSecret] = useState(true);
 
-    const test = (e) => {
-        console.log("click")
-    }
 
     useEffect(()=>{
         const getClientSecret = async () => {
@@ -53,10 +56,26 @@ function Checkout() {
             payment_method: {
                 card: elements.getElement(CardElement)
             }
-        }).then(({ paymentIntend}) => {
+        }).then(({ paymentIntent}) => {
+            console.log(paymentIntent)
+            db
+            .collection('users')
+            .doc(user?.uid) //replace with id
+            .collection('orders')
+            .doc(paymentIntent.id)
+            .set({
+                basket: basket,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
+            })
+
+
+
             setSucceeded(true);
             setError(null);
             setProcessing(false);
+            dispatch(EMPTY_BASKET({}));
+
 
             history.replace('/')
         })
@@ -106,8 +125,8 @@ function Checkout() {
                         </p>
                     </PhoneContainer>
                     <CardElement onChange={handleChange}/>
-                    <PlaceOrder>
-                        <button onClick={handleSubmit} disabled={true}>
+                    <PlaceOrder isdisabled={(disabled || processing).toString()}>
+                        <button onClick={handleSubmit} disabled={disabled || processing}>
                             {processing? "Processing" : "Place Order"}
                         </button>
                         <CheckoutElement/>
@@ -241,13 +260,13 @@ const PlaceOrder = styled.div`
         font-size: 17px;
         line-height: 1.47;
         font-weight: 400;
-        background: #0071e3;
+        background: ${props => props.isdisabled == 'true'?'grey':'#0071e3'};
         color: #fff;
         min-width: 28px;
         padding: 18px 31px;
         border-radius: 12px;
         border: 0;
-        cursor: pointer;
+        cursor: ${props => props.isdisabled == 'true'?'default':'pointer'};;
         width: 100%;
         max-width: 500px;
     }
