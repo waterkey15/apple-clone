@@ -1,15 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
+import CurrencyFormat from 'react-currency-format'
+
 
 function OrderedElement({id, total, created, basket}) {
+    
     return (
         <Container>
             <HeaderAndID>
                 <h2>Order</h2>
-                <p>{id}</p>
+                <p>Order No: {id}</p>
             </HeaderAndID>
             <Date>
-                {created}
+                {moment.unix(created).format('MMMM Do YYYY, h:mma')}
             </Date>
             {
                 basket.map((item) => (
@@ -21,10 +25,21 @@ function OrderedElement({id, total, created, basket}) {
                 ))
             }
             <OrderTotal>
-                <h2>
-                    Order total: ${total}
-                </h2>
-                <span>with tax</span>
+            <CurrencyFormat
+                    renderText={(value) => (
+                    <>
+                       <h2>
+                           Order Total: {value}
+                       </h2>
+                       <span>with tax</span>
+                    </>
+                    )}
+                    decimalScale={2}
+                    value={total / 100} // Part of the homework
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"$"}
+            />
             </OrderTotal>
         </Container>
     )

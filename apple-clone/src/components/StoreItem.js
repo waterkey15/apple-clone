@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import  styled  from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_ITEM } from '../features/basket/basketSlice';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function StoreItem({id, textColor, bgColor, isNew, name, desc, price, image, isBig}) {
 
     const basket = useSelector((state) => state.basket.value);
     const dispatch = useDispatch();
+    const [showPopUp, setShowPopUp] = useState(false);
+
 
     const addItem = () =>{
+        setShowPopUp(true);
+        setTimeout(() => {
+            setShowPopUp(false);
+        }, 5000);
         dispatch(ADD_ITEM({
             id: id,
             name: name,
@@ -22,6 +30,19 @@ function StoreItem({id, textColor, bgColor, isNew, name, desc, price, image, isB
 
     return (
         <Container txtColor={textColor} bg={bgColor}>
+                       {
+                showPopUp&&(
+                    <AddToBasketPopUp>
+                        <PopUpContainer>
+                        <AddIcon/>
+                        <p>Item added</p>
+                        <CloseIconContainer>
+                            <CloseIcon onClick={(e) => setShowPopUp(false)}/>
+                        </CloseIconContainer>
+                        </PopUpContainer>
+                    </AddToBasketPopUp>
+                )
+            }
             {
                 isNew?(<span>New</span>) : ""
             }
@@ -146,6 +167,58 @@ const ProductImage = styled.div`
         }
     }
 
+`
+const AddToBasketPopUp = styled.div`
+    position: fixed;
+    bottom:10%;
+    right: 10%;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    @media(max-width:830px){
+        bottom:10%;
+        right:0;
+        left: 0;
+    }
+    animation: fadeInAnimation ease-in-out 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    @keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+`
+
+const PopUpContainer = styled.div`
+    
+    display:flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+    border-radius: 4px;
+    padding: 0 10px;
+    color: #fff;
+    p{
+        margin-left: 10px;
+        font-size: 17px;
+        margin-right: 20px;
+    }
+`
+
+const CloseIconContainer = styled.div`
+    position: absolute;
+    top:0;
+    right:0;
+    svg{
+        font-size: small;
+        cursor:pointer;
+    }
 `
 
 

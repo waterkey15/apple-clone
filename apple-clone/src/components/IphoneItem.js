@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_ITEM } from '../features/basket/basketSlice';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function IphoneItem({id, cameraDesc, cameraImg, iphoneImage, procdutName, price, chipImage, retina, retinaDesc, battery, desc, chipDesc, speed, speedDesc, megaSafeImg}) {
 
 
     const basket = useSelector((state) => state.basket.value);
+
+    const [showPopUp, setShowPopUp] = useState(false);
     const dispatch = useDispatch();
 
     const addItem = () =>{
+        setShowPopUp(true);
+        setTimeout(() => {
+            setShowPopUp(false);
+        }, 5000);
         dispatch(ADD_ITEM({
             id: id,
             name: procdutName,
@@ -23,6 +31,19 @@ function IphoneItem({id, cameraDesc, cameraImg, iphoneImage, procdutName, price,
 
     return (
         <Container>
+            {
+                showPopUp&&(
+                    <AddToBasketPopUp>
+                        <PopUpContainer>
+                        <AddIcon/>
+                        <p>Item added</p>
+                        <CloseIconContainer>
+                            <CloseIcon onClick={(e) => setShowPopUp(false)}/>
+                        </CloseIconContainer>
+                        </PopUpContainer>
+                    </AddToBasketPopUp>
+                )
+            }
             <FirstPartContainer>
                 <ImageContainer>
                     <img src={iphoneImage} alt=""/>
@@ -290,5 +311,58 @@ const Desc = styled(Price)`
     font-weight: 400;
 `
 
+
+const AddToBasketPopUp = styled.div`
+    position: fixed;
+    bottom:10%;
+    right: 10%;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    @media(max-width:830px){
+        bottom:10%;
+        right:0;
+        left: 0;
+    }
+    animation: fadeInAnimation ease-in-out 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    @keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+`
+
+const PopUpContainer = styled.div`
+    
+    display:flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+    border-radius: 4px;
+    padding: 0 10px;
+    color: #fff;
+    p{
+        margin-left: 10px;
+        font-size: 17px;
+        margin-right: 20px;
+    }
+`
+
+const CloseIconContainer = styled.div`
+    position: absolute;
+    top:0;
+    right:0;
+    svg{
+        font-size: small;
+        cursor:pointer;
+    }
+`
 
 export default IphoneItem

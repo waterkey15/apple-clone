@@ -57,5 +57,4 @@ const MacContainer = styled.div`
     }
 `
 
-
 export default Iphone

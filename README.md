@@ -1,21 +1,12 @@
 # Apple Clone
 
-This is a Full-Stack Apple Clone Webpage project developed all by myself without having any help from anything
-
-I built this clone website by reflecting Apple's original website. Styles, components, structure etc. are all done by myself without any help.
+This is a Full-Stack Apple Clone Webpage project developed by all myself, without following any tutorial or having any help.
 
 Frontend coded with using React.JS 
 
-Frontend is totally responsive from big screen sized to small screen sized like mobile phones.
+Backend coded with NodeJS using Firebase library. 
 
-### Technologies/Libraries used
-
-- React.Js
-- Styled components
-- Stripe
-- Redux/Hooks
-- React Router
-- React Currency Format
+Project is totally responsive for any width of mobile phone.
 
 Developers can deploy it locally for testing purposes with the following commands...
 
@@ -29,4 +20,23 @@ npm install
 npm start
 ```
 
+For Backend open a new Terminal in the project directory...
 
+```
+cd functions
+npm install
+firebase emulators:start
+```
+
+### Used Technologies/Tools/Softwares
+## Frontend
+- HTML, CSS, JavaScript, NodeJS
+- React.JS
+- React styled-components
+- Axios
+- Redux
+- State-management
+- Stripe
+- Firebase
+- Firebase Authentication
+- Firestore Database 
