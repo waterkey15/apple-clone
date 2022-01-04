@@ -6,7 +6,15 @@ Website has full functionality of an eCommerce website. Money transaction happen
 
 Frontend coded with using React.JS 
 
-Backend coded with NodeJS using Firebase library. 
+Backend coded with NodeJS. 
+
+## Prerequisites
+
+- MySQL should be installed globally.
+- NodeJS should be installed globally.
+- NPX should be installed.
+
+
 
 Project is totally responsive for any width of mobile phone.
 
@@ -22,13 +30,7 @@ npm install
 npm start
 ```
 
-For Backend open a new Terminal in the project directory...
-
-```
-cd functions
-npm install
-firebase emulators:start
-```
+For Backend follow the README.md inside of the apple-clone-backend directory.
 
 ### Used Technologies/Tools/Softwares
 ## Frontend / Backend
@@ -42,3 +44,6 @@ firebase emulators:start
 - Firebase
 - Firebase Authentication
 - Firestore Database 
+- Express
+- CryptoJS
+- MySQL

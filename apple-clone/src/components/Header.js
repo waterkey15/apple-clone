@@ -19,6 +19,7 @@ function Header() {
     const basket = useSelector((state) => state.basket.value);
     const dispatch = useDispatch();
 
+    const [showSignOut, setShowSignOut] = useState(false);
 
     const user = useSelector((state) => state.user.value);
 
@@ -68,8 +69,11 @@ function Header() {
                 }
                 {
                     user? (
-                    <IconContainer>
-                        <PersonIcon onClick={handleSignOut}/>
+                    <IconContainer show={showSignOut? "true" : "false"} onClick={(e) => setShowSignOut(!showSignOut)}>
+                        <PersonIcon />
+                        <div onClick={handleSignOut}>
+                            Sign Out
+                        </div>
                     </IconContainer>)
                     :
                     <Link to="/signin">
@@ -169,7 +173,6 @@ const AppleLI = styled.li`
     text-decoration: none;
     cursor:pointer;
 
-    }
 `
 
 const StoreLI = styled(AppleLI)`
@@ -396,13 +399,29 @@ const Link2 = styled(Link)`
 `
 
 const IconContainer = styled.li`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
     cursor:pointer;
     @media(max-width:830px){
         margin-right: 20px;
     }
     p{
-        position:relative;
+        font-size: 20px;
     }
+
+    div{
+        font-size: 12px;
+        margin-top: 30px;
+        position: fixed;
+        z-index: 10000000;
+        background-color: #fff;
+        color: #000;
+        padding: 5px 15px;
+        border-radius: 14px;
+        display: ${props => props.show == "true" ? "block" : "none"};
+    }
+
 `
 
 export default Header

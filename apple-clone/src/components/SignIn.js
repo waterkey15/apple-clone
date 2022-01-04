@@ -3,38 +3,109 @@ import styled from 'styled-components'
 import LoginIcon from '@mui/icons-material/Login';
 import { auth } from '../firebase/firebase';
 import { useHistory } from 'react-router-dom';
+import axios from '../axios/axios'
+import { SET_USER } from '../features/user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import CryptoAES from 'crypto-js/aes';
+import CryptoENC from 'crypto-js/enc-utf8';
+
+
 
 function SignIn() {
     const history = useHistory();
 
+    const dispatch = useDispatch();
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
 
 
     const register = () => {
-        auth.createUserWithEmailAndPassword('trial1@trial1.com', "123456")
-        .then((auth) => {
-            console.log(auth);
-            if(auth){
-                history.push('/')
-            }
-        })
-        .catch((error) => {
-            alert(error.message);
-        })
+        // auth.createUserWithEmailAndPassword('trial1@trial1.com', "123456")
+        // .then((auth) => {
+        //     console.log(auth);
+        //     if(auth){
+        //         history.push('/')
+        //     }
+        // })
+        // .catch((error) => {
+        //     alert(error.message);
+        // })
+        var CryptoJS = require("crypto-js");
+        var ciphertext = CryptoJS.AES.encrypt(password, '3333').toString(); //HIDE THIS SECRET KEY         //log encrypted data
+        console.log('Encrypt Data -');
+        console.log(ciphertext);
+
+
+        var data = JSON.stringify({
+            "name": name,
+            "email": email,
+            "password": ciphertext
+          });
+        const response =  axios({
+            method: 'post',
+            url: `/create_user`,
+            headers: { 
+                'Content-Type': 'application/json'                  
+            },
+                data : data
+            }).then((res) => {
+                console.log((res));
+                if(res.data.code == 200){
+                    history.push('/');
+                    dispatch((SET_USER(name)));
+                }else{
+                    if(res.data.desc == "ER_DUP_ENTRY"){
+                        alert("This e-mail is already in use. Please choose a different e-mail address");
+                    }
+                }
+            })
+
+
     }
 
     const signIn = (e) => {
         e.preventDefault();
-        auth
-        .signInWithEmailAndPassword(email, password)
-        .then(auth => {
-            history.push('/');
-        })
-        .catch(error => {
-            alert(error.message)
-        })
+        var CryptoJS = require("crypto-js");
+        var ciphertext = CryptoJS.AES.encrypt(password, '3333').toString(); //HIDE THIS SECRET KEY 
+        //log encrypted data
+        console.log('Encrypt Data -');
+        console.log(ciphertext);
+        var data = JSON.stringify({
+            "email": email,
+            "password": ciphertext
+        });
+        const response =  axios({
+            method: 'post',
+            url: `/signin`,
+            headers: { 
+                'Content-Type': 'application/json'                  },
+                data : data
+            }).then((res) => {
+                console.log((res));
+                if(res.data.code == 200){
+                    history.push('/');
+                    dispatch((SET_USER(name)));
+                }else{
+                    if(res.data.desc == "WRONG_PASSWORD"){
+                        alert("Please check your password");
+                    }else if(res.data.desc == "DATABASE_ERROR"){
+                        alert("Database unavailable right now, please try again later")
+                    }else if(res.data.desc == "NO_SUCH_USER"){
+                        alert("No such user found in the database");
+                    }
+                }
+                // if(res.data.code == 200){
+                //     history.push('/');
+                //     dispatch((SET_USER(name)));
+                // }else{
+                //     if(res.data.desc == "ER_DUP_ENTRY"){
+                //         alert("This e-mail is already in use. Please choose a different e-mail address");
+                //     }
+                // }
+            })
     }
 
 
@@ -49,6 +120,7 @@ function SignIn() {
                     <SecondHeader>
                         Sign in to Apple Store
                     </SecondHeader>
+                    <NameInput onChange={(e) => setName(e.target.value)} placeholder="Name"/>
                     <EmailInput onChange={(e) => setEmail(e.target.value)} placeholder="Apple ID"/>
                     <PasswordInput onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password"/>
                     <SignInButton>
@@ -126,6 +198,7 @@ const EmailInput = styled.input`
 `
 
 const PasswordInput = styled(EmailInput)``
+const NameInput = styled(EmailInput)``
 
 const SignInButton = styled.div`
     margin-top: 20px;

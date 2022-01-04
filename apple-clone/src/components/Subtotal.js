@@ -17,18 +17,29 @@ function Subtotal() {
                 <p>Pay $83.25/mo.per month at 0% APR for eligible items in your order with Apple Card Monthly Installments.◊ Learn moreLearn more about Apple Card Monthly Installments</p>
             </AppleCardAdv>
             <ReviewAndSubtotal>
-                <ReviewBagHeader>
-                    Review your bag.
-                    <FreeDeliveryText>
-                        Free delivery and free returns
-                    </FreeDeliveryText>
-                </ReviewBagHeader>
-                <CheckoutElement/>
-               
+                {
+                    basket.length <= 0? (
+                        <ReviewBagHeader>
+                            Your bag is currently empty.
+                            <FreeDeliveryText>
+                                Add something to proceed to checkout!
+                            </FreeDeliveryText>
+                        </ReviewBagHeader>
+                    ):
+                    (
+                        <ReviewBagHeader>
+                            Review your bag.
+                            <FreeDeliveryText>
+                                Free delivery and free returns
+                            </FreeDeliveryText>
+                        </ReviewBagHeader>
+                    )
+                }
+            <CheckoutElement/>
             </ReviewAndSubtotal>
-            <ProceedToCheckout>
+            <ProceedToCheckout isDisabled={!basket.length > 0}>
                 <Link to="/checkout">
-                    <button>
+                    <button disabled={!basket.length > 0}>
                         Proceed to Check Out
                     </button>
                 </Link>
@@ -123,13 +134,13 @@ const ProceedToCheckout = styled.div`
         font-size: 17px;
         line-height: 1.47;
         font-weight: 400;
-        background: #0071e3;
+        background: ${props => props.isDisabled? "grey" : "#0071e3"};
         color: #fff;
         min-width: 28px;
         padding: 18px 31px;
         border-radius: 12px;
         border: 0;
-        cursor: pointer;
+        cursor: ${props => props.isDisabled? "default" : "pointer"};
     }
 `
 

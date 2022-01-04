@@ -78,6 +78,11 @@ function Checkout() {
 
 
             history.replace('/')
+        }).catch((error) => {
+            alert('something went wrong please check yout card information');
+            setSucceeded(false);
+            setError(true);
+            setProcessing(false);
         })
     }
 
@@ -124,7 +129,7 @@ function Checkout() {
                         The phone number you enter can’t be changed after you place your order, so please make sure it’s correct.
                         </p>
                     </PhoneContainer>
-                    <CardElement onChange={handleChange}/>
+                    <CardElmnt onChange={handleChange}/>
                     <PlaceOrder isdisabled={(disabled || processing).toString()}>
                         <button onClick={handleSubmit} disabled={disabled || processing}>
                             {processing? "Processing" : "Place Order"}
@@ -280,6 +285,11 @@ const CardContainer = styled.form`
 
 const SubmitButton = styled.button`
 
+`
+
+const CardElmnt = styled(CardElement)`
+    max-width: 700px;
+    margin-top: 20px;
 `
 
 export default Checkout
