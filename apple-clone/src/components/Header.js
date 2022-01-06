@@ -71,9 +71,11 @@ function Header() {
                     user? (
                     <IconContainer show={showSignOut? "true" : "false"} onClick={(e) => setShowSignOut(!showSignOut)}>
                         <PersonIcon />
-                        <div onClick={handleSignOut}>
-                            Sign Out
+                        <div>
+                            <p onClick={handleSignOut}>Sign Out</p>
+                            <p>{user}</p>
                         </div>
+
                     </IconContainer>)
                     :
                     <Link to="/signin">
@@ -420,6 +422,12 @@ const IconContainer = styled.li`
         padding: 5px 15px;
         border-radius: 14px;
         display: ${props => props.show == "true" ? "block" : "none"};
+        p{
+            margin: 10px 0;
+            font-size: 12px;
+            border-bottom: 1px solid #424245;
+            padding-bottom: 5px;
+        }
     }
 
 `

@@ -86,8 +86,8 @@ function SignIn() {
             }).then((res) => {
                 console.log((res));
                 if(res.data.code == 200){
+                    dispatch((SET_USER(email)));
                     history.push('/');
-                    dispatch((SET_USER(name)));
                 }else{
                     if(res.data.desc == "WRONG_PASSWORD"){
                         alert("Please check your password");

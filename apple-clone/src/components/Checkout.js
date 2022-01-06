@@ -33,18 +33,18 @@ function Checkout() {
 
 
     useEffect(()=>{
+        console.log(getFinalTotal(basket) * 100);
         const getClientSecret = async () => {
             const response = await axios({
                 method: 'post',
-                url: `/checkout/create?total=${getFinalTotal(basket) * 100}`
+                url: `/checkout/create?total=${parseInt(getFinalTotal(basket) * 100)}`
+            }).then((res) => {
+                console.log(res);
+                setClientSecret(res.data.clientSecret)
             });
-            console.log(clientSecret)
-            setClientSecret(response.data.clientSecret)
         }
-
-
         getClientSecret();
-    }, [basket]);
+    }, []);
 
     console.log("secret is ====> ", clientSecret);
 
@@ -58,28 +58,23 @@ function Checkout() {
             }
         }).then(({ paymentIntent}) => {
             console.log(paymentIntent)
-            db
-            .collection('users')
-            .doc(user?.uid) //replace with id
-            .collection('orders')
-            .doc(paymentIntent.id)
-            .set({
-                basket: basket,
-                amount: paymentIntent.amount,
-                created: paymentIntent.created
-            })
-
-
-
+            // db
+            // .collection('users')
+            // .doc(user?.uid) //replace with id
+            // .collection('orders')
+            // .doc(paymentIntent.id)
+            // .set({
+            //     basket: basket,
+            //     amount: paymentIntent.amount,
+            //     created: paymentIntent.created
+            // })
             setSucceeded(true);
             setError(null);
             setProcessing(false);
             dispatch(EMPTY_BASKET({}));
-
-
             history.replace('/')
         }).catch((error) => {
-            alert('something went wrong please check yout card information');
+            alert('something went wrong please check your card information');
             setSucceeded(false);
             setError(true);
             setProcessing(false);
