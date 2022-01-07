@@ -54,8 +54,11 @@ function SignIn() {
             }).then((res) => {
                 console.log((res));
                 if(res.data.code == 200){
+                    dispatch((SET_USER({
+                        email: email,
+                        userID: res.data.user.user_id
+                    })));
                     history.push('/');
-                    dispatch((SET_USER(name)));
                 }else{
                     if(res.data.desc == "ER_DUP_ENTRY"){
                         alert("This e-mail is already in use. Please choose a different e-mail address");
@@ -86,7 +89,10 @@ function SignIn() {
             }).then((res) => {
                 console.log((res));
                 if(res.data.code == 200){
-                    dispatch((SET_USER(email)));
+                    dispatch((SET_USER({
+                        email: email,
+                        userID: res.data.user.user_id
+                    })));
                     history.push('/');
                 }else{
                     if(res.data.desc == "WRONG_PASSWORD"){

@@ -10,22 +10,22 @@ function Orders() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        if(user) {
-            db
-            .collection('users')
-            .doc(user?.uid)
-            .collection('orders')
-            .orderBy('created', 'desc')
-            .onSnapshot(snapshot => (
-                setOrders(snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    data: doc.data()
-                })))
-            ))
-            console.log(orders)
-        } else {
-            setOrders([])
-        }
+        // if(user) {
+        //     db
+        //     .collection('users')
+        //     .doc(user?.uid)
+        //     .collection('orders')
+        //     .orderBy('created', 'desc')
+        //     .onSnapshot(snapshot => (
+        //         setOrders(snapshot.docs.map(doc => ({
+        //             id: doc.id,
+        //             data: doc.data()
+        //         })))
+        //     ))
+        //     console.log(orders)
+        // } else {
+        //     setOrders([])
+        // }
     
       }, [user])
 

@@ -22,12 +22,13 @@ function Header() {
     const [showSignOut, setShowSignOut] = useState(false);
 
     const user = useSelector((state) => state.user.value);
+    console.log(user);
 
     const handleSignOut = () => {
-        auth.signOut();
-        console.log(user);
-        dispatch((SET_USER(null)))
-
+        dispatch((SET_USER({
+            email: null,
+            userID: null
+        })));
     }
 
 
@@ -61,19 +62,19 @@ function Header() {
                 <TVLI>TV & Home</TVLI>
                 <OnlyLI>Only on Apple</OnlyLI>
                 {
-                    user&& (
+                    user.userEmail&& (
                         <Link to="/orders">
                             <AccessoriesLI>Orders</AccessoriesLI>
                         </Link>
                     )
                 }
                 {
-                    user? (
+                    user.userEmail? (
                     <IconContainer show={showSignOut? "true" : "false"} onClick={(e) => setShowSignOut(!showSignOut)}>
                         <PersonIcon />
                         <div>
                             <p onClick={handleSignOut}>Sign Out</p>
-                            <p>{user}</p>
+                            <p>{user.userEmail}</p>
                         </div>
 
                     </IconContainer>)

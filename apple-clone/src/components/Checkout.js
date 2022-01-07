@@ -68,6 +68,27 @@ function Checkout() {
             //     amount: paymentIntent.amount,
             //     created: paymentIntent.created
             // })
+            basket.map((item) => {
+                console.log(item);
+                var data = JSON.stringify({
+                    "product_name": item.name,
+                    "product_image": item.img,
+                    "product_price": item.price,
+                    "user_id": user.userID,
+                    "createdAt": paymentIntent.created,
+                    "basket_total": getFinalTotal(basket)
+                  });
+                const response = axios({
+                    method: 'post',
+                    url: `/saveorder`,
+                    headers: { 
+                        'Content-Type': 'application/json'
+                      },
+                    data : data
+                }).then((res) => {
+                    console.log(res);
+                });
+            })
             setSucceeded(true);
             setError(null);
             setProcessing(false);
