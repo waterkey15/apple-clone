@@ -34,7 +34,7 @@ const configDB = new Promise((resolve, reject) => {
                     if (err) throw err;
                     });
                 con.query("CREATE TABLE user (user_id INT AUTO_INCREMENT, user_name VARCHAR(20), user_email VARCHAR(40) UNIQUE, user_password CHAR(44), PRIMARY KEY(user_id));");
-                con.query("CREATE TABLE orders (order_id INT AUTO_INCREMENT, product_name VARCHAR(20), product_image VARCHAR(40), product_price INT, user_id PRIMARY KEY(order_id));");
+                con.query("CREATE TABLE orders (order_id INT AUTO_INCREMENT, product_name VARCHAR(50), product_image VARCHAR(200), product_price FLOAT, user_id INT, created_at INT, basket_total FLOAT, PRIMARY KEY(order_id));");
                 resolve(con)
                 return con;
             }
